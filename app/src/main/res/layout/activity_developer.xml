@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="342dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="15dp"
+        android:text="Try functions below to see if everything works as it is supposed to be."
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_multitouch"
+        app:layout_constraintHorizontal_bias="0.326"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.033"
+        tools:text="Try functions below to see if everything works as it is supposed to be." />
+
+    <Button
+        android:id="@+id/button_multitouch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="21dp"
+        android:text="MultiTouch"
+        app:layout_constraintBottom_toTopOf="@+id/button_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:text="MultiTouch" />
+
+    <Button
+        android:id="@+id/button_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="23dp"
+        android:text="Location"
+        app:layout_constraintBottom_toTopOf="@+id/button_orientation"
+        app:layout_constraintStart_toStartOf="@+id/button_multitouch"
+        app:layout_constraintTop_toBottomOf="@+id/button_multitouch"
+        tools:text="Location" />
+
+    <Button
+        android:id="@+id/button_orientation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="232dp"
+        android:text="Orientation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/button_location"
+        app:layout_constraintTop_toBottomOf="@+id/button_location"
+        tools:text="Orientation" />
+</android.support.constraint.ConstraintLayout>
