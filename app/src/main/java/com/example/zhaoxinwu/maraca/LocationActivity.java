@@ -35,6 +35,13 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+        }
         setContentView(R.layout.activity_location);
         mWifiLatitudeTextView = (TextView)findViewById(R.id.text_view_wifi_latitude_value);
         mWifiLongitudeTextView = (TextView)findViewById(R.id.text_view_wifi_longitude_value);
@@ -66,7 +73,8 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
                     PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
                             PackageManager.PERMISSION_GRANTED) {
-                return;
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
             }
             mLocationManager.removeUpdates(this);
         }
@@ -125,28 +133,25 @@ public class LocationActivity extends AppCompatActivity implements LocationListe
 
     @Override
     public void onClick(View v) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            if (v.getId() == R.id.button_gps) {
-                mLocationType = GPS;
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            } else if (v.getId() == R.id.button_wifi) {
-                mLocationType = WIFI;
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        if (v.getId() == R.id.button_gps) {
+            mLocationType = GPS;
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                            PackageManager.PERMISSION_GRANTED) {
+                return;
             }
-        }
-        else {
-            if (v.getId() == R.id.button_gps) {
-                mLocationType = GPS;
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            } else if (v.getId() == R.id.button_wifi) {
-                mLocationType = WIFI;
-                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        } else if (v.getId() == R.id.button_wifi) {
+            mLocationType = WIFI;
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                            PackageManager.PERMISSION_GRANTED) {
+                return;
             }
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
         }
     }
 }
