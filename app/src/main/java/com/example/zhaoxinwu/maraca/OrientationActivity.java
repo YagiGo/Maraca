@@ -6,6 +6,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.FloatMath;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -71,14 +73,22 @@ public class OrientationActivity extends AppCompatActivity implements SensorEven
             SensorManager.getRotationMatrix(mInRotationMatrix, mInclinationMatrix, mAccelerationValue, mGeoMagneticValue);
             SensorManager.remapCoordinateSystem(mInRotationMatrix, SensorManager.AXIS_X, SensorManager.AXIS_Z, mOutRotationMatrix);
             SensorManager.getOrientation(mOutRotationMatrix, mOrientationValue);
-
             String azimuthText = String.valueOf(Math.floor(Math.toDegrees((double) mOrientationValue[0])));
             String pitchText = String.valueOf(Math.floor(Math.toDegrees((double) mOrientationValue[1])));
             String rollText = String.valueOf(Math.floor(Math.toDegrees((double) mOrientationValue[2])));
+            float gX = mOrientationValue[0] / SensorManager.GRAVITY_EARTH;
+            float gY = mOrientationValue[1] / SensorManager.GRAVITY_EARTH;
+            float gZ = mOrientationValue[2] / SensorManager.GRAVITY_EARTH;
+            //Calculate G force
 
+            mAzimuthText.setText(String.valueOf(gX));
+            mPitchText.setText(String.valueOf(gY));
+            mRollText.setText(String.valueOf(gZ));
+            /*
             mAzimuthText.setText(azimuthText);
             mPitchText.setText(pitchText);
             mRollText.setText(rollText);
+            */
         }
 
     }
