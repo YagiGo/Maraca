@@ -13,41 +13,20 @@ import android.media.AudioManager;
 import java.io.IOException;
 
 public class MultitouchActivity extends AppCompatActivity {
-    private TextView mTouchTypeText;
-    private TextView mTouchPointText1;
-    private TextView mTouchPointText2;
-    private TextView mTouchLengthText;
     String DEBUG_TAG = "Maraca";
-    // For touch process
-    private static final int NONE = 0;
-    private static final int TOUCH = 1;
-    private static final int DRAG = 2;
-    private static final int PINCH = 3;
     private MediaPlayer mediaPlayer;
 
     //Parameters of Dragging
-    private float mDragStartX = 0.0f;
-    private float mDragStartY = 0.0f;
-    private double mPinchStartDistance = 0.0f;
-    private int mTouchMode;
-    private String mTouchTypeString = "";
-    private String mTouchPoint1String = "";
-    private String mTouchPoint2String = "";
-    private String mTouchLengthString = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multitouch);
-        mTouchTypeText = (TextView) findViewById(R.id.text_view_touch_type);
-        mTouchPointText1 = (TextView) findViewById(R.id.text_view_touch_point_1);
-        mTouchPointText2 = (TextView) findViewById(R.id.text_view_touch_point_2);
-        mTouchLengthText = (TextView) findViewById(R.id.text_view_touch_length);
         audioFileSetUp();
     }
     private boolean audioFileSetUp() {
         mediaPlayer = new MediaPlayer();
-        String filePath = "testMusic.wav";
+        String filePath = "drumSound.mp3";
         boolean fileCheck = false;
         // Read File
         try {
@@ -70,22 +49,25 @@ public class MultitouchActivity extends AppCompatActivity {
 
         int action = MotionEventCompat.getActionMasked(event);
         audioFileSetUp();
+
         switch (action) {
             case (MotionEvent.ACTION_DOWN):
                 Log.d(DEBUG_TAG, "Action was DOWN");
-                mediaPlayer.reset();
+                mediaPlayer.start();
         return true;
 
             case (MotionEvent.ACTION_MOVE) :
                 Log.d(DEBUG_TAG,"Action was MOVE");
-                mediaPlayer.start();
+                //mediaPlayer.start();
                 return true;
             case (MotionEvent.ACTION_UP) :
                 Log.d(DEBUG_TAG,"Action was UP");
                 mediaPlayer.stop();
+                mediaPlayer.release();
                 return true;
             case (MotionEvent.ACTION_CANCEL) :
                 mediaPlayer.stop();
+                mediaPlayer.release();
                 Log.d(DEBUG_TAG,"Action was CANCEL");
                 return true;
             case (MotionEvent.ACTION_OUTSIDE) :

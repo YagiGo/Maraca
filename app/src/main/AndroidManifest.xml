@@ -20,9 +20,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".DeveloperActivity" />
-        <activity android:name=".OrientationActivity" />
-        <activity android:name=".LocationActivity" />
-        <activity android:name=".MultitouchActivity"></activity>
+        <activity android:name=".OrientationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".LocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MultitouchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
