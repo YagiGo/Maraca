@@ -44,10 +44,8 @@ public class OrientationActivity extends AppCompatActivity implements SensorEven
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
     private MediaPlayer mediaPlayerMaraca = new MediaPlayer();
-    private MediaPlayer mediaPlayerDrum = new MediaPlayer();
     private String DEBUG_TAG = "Maraca";
-
-    private MediaPlayer mediaPlayer;
+    private static final int maxVol = 100;
     protected boolean audioFileSetUp(MediaPlayer mediaPlayer, String fileName) {
         String filePath = fileName;
         boolean fileCheck = false;
@@ -81,9 +79,12 @@ public class OrientationActivity extends AppCompatActivity implements SensorEven
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta; // perform low-cut filter
             if(mAccel > 12) {
+                float currVol = mAccel;
                 Log.d("Shake Detector", "Shaking Detected");
                 // while(!audioFileSetUp()) {}
+                float log1=(float)(Math.log(maxVol-currVol)/Math.log(maxVol));
                 mediaPlayerMaraca.start();
+                mediaPlayerMaraca.setVolume(1-log1,1-log1);
             }
             // Log.d("DEBUG", Float.toString(mAccel));
         }

@@ -12,11 +12,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button developerActivitySwitchButton = (Button) findViewById(R.id.button_developers);
-        developerActivitySwitchButton.setOnClickListener(new View.OnClickListener() {
+        Button orientationActivitySwitchButton = (Button) findViewById(R.id.button_maraca);
+        orientationActivitySwitchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), DeveloperActivity.class);
+                Intent intent = new Intent(getApplicationContext(), OrientationActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button multitouchActivitySwitchButton = (Button) findViewById(R.id.button_drum);
+        multitouchActivitySwitchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MultitouchActivity.class);
                 startActivity(intent);
             }
         });
